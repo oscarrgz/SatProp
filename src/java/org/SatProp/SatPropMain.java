@@ -2,8 +2,13 @@ package org.SatProp;
 
 import java.io.IOException;
 
+import org.SatProp.gui.configurationTabController;
+import org.SatProp.gui.terminalController;
+import org.SatProp.propagator.Input;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
@@ -17,6 +22,12 @@ public class SatPropMain extends Application {
 	private Stage primaryStage;
 	// Background layout
     private BorderPane rootLayout;
+    // Properties 
+    private ObservableList<Input> Parameters = FXCollections.observableArrayList();
+    // controller of terminal view
+    private terminalController the_terminal;
+    // controller of tabs
+    private configurationTabController the_tabs;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -25,9 +36,12 @@ public class SatPropMain extends Application {
 
         initRootLayout();
         
+        // tabs need to be first
+        showConfigurationTabs();
+        
         showTerminalView();
         
-        showConfigurationTabs();
+        
         
 	}
 
@@ -64,13 +78,12 @@ public class SatPropMain extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(SatPropMain.class.getResource("gui/terminalLayOut.fxml"));
             AnchorPane terminalView = (AnchorPane) loader.load();
-
+            the_terminal = loader.getController();
             // Set person overview into the bottom of root layout.
             rootLayout.setBottom(terminalView);
             
-            //Give the controller access to the main app.
-//            terminalView controller = loader.getController();
-//            controller.setMainApp(this);
+            //Give the controller access to the configuration tab
+            the_terminal.setConfigurationTab(the_tabs);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,7 +99,7 @@ public class SatPropMain extends Application {
     		FXMLLoader loader = new FXMLLoader();
             loader.setLocation(SatPropMain.class.getResource("gui/configurationTabsLayout.fxml"));
             TabPane ConfigurationTabs = (TabPane) loader.load();
-            
+            the_tabs = loader.getController();
             // Set configuration tab into the center of root layout
             rootLayout.setCenter(ConfigurationTabs);
             
