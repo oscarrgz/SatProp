@@ -81,11 +81,16 @@ public class Input {
 	}
 	public void updateConfig(Properties newProperties) throws IOException {
 		// update existing properties
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		newProperties.store(out, "New Properties");
-		// Transform to a input stream
-		ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
-		this.parameters.load(in);
+		
+		// Print all the keys
+		Set prop;
+		String str;
+		prop = newProperties.keySet();
+		Iterator itr = prop.iterator();
+		while(itr.hasNext()) {
+			str = (String) itr.next();
+			parameters.setProperty(str, newProperties.getProperty(str));
+		}
 	}
 	
 	public void printValues() {

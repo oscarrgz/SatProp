@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.SatProp.gui.inputOrbitalElementsController">
    <children>
       <GridPane layoutX="159.0" layoutY="121.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
         <columnConstraints>
@@ -35,18 +35,18 @@
             <Label text="Drag Coefficient (CD)" GridPane.rowIndex="8" />
             <Label text="Eccentricity" GridPane.rowIndex="2" />
             <Label text="Reflectivity Coefficient (CR)" GridPane.rowIndex="9" />
-            <TextField prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="SemiMajorAxisText" prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="EccentricityText" prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="RAANText" prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="InclinationText" prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="ArgPText" prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="TrueAnomalyText" prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="AtoMText" prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="CDText" prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="CRText" prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
             <Label text="RAAN [deg]" GridPane.rowIndex="4" />
-            <Label text="Epoch (UTC)" />
-            <TextField GridPane.columnIndex="1" />
+            <Label fx:id="epochLabel" text="Epoch (UTC)" />
+            <TextField fx:id="EpochText" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>

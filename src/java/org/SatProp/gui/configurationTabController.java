@@ -1,7 +1,9 @@
 package org.SatProp.gui;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Properties;
+import java.util.Set;
 
 import org.SatProp.SatPropMain;
 import org.SatProp.util.DateUtil;
@@ -108,6 +110,9 @@ public class configurationTabController {
 	@FXML
 	private BorderPane OrbitInputPane;
 	
+	private inputOrbitalElementsController OrbitController;
+	
+	private inputStateVectorController StateController;
 	
 	private Properties Parameters;
 	
@@ -431,6 +436,7 @@ public class configurationTabController {
             AnchorPane OrbElementsView;
 			try {
 				OrbElementsView = (AnchorPane) loader.load();
+				OrbitController = loader.getController();
 				// Set person overview into the bottom of root layout.
 	            OrbitInputPane.setCenter(OrbElementsView);
 			} catch (IOException e) {
@@ -445,6 +451,7 @@ public class configurationTabController {
             AnchorPane StateVectorView;
 			try {
 				StateVectorView = (AnchorPane) loader.load();
+				StateController = loader.getController();
 				// Set person overview into the bottom of root layout.
 	            OrbitInputPane.setCenter(StateVectorView);
 			} catch (IOException e) {
@@ -454,6 +461,51 @@ public class configurationTabController {
     	}
     }
     
+    /*
+     * Saves the input orbit of the user
+     */
+    public void handleSaveOrbit () {
+    	// Check the correct input case
+    	boolean update = false;
+    	Properties newProperties = new Properties();
+    	switch (InputFrame.getSelectionModel().getSelectedItem()) {
+    		case "TLE":
+    			// TODO
+//    			newProperties.setProperty("Initial_state_format", "5");
+    		case "Orbital Elements":
+    			if (OrbitController.ValidateInput()) {
+    				newProperties = OrbitController.getValues();
+    				update = true;
+    				newProperties.setProperty("Initial_state_format", "1");
+    			}
+    		default:
+    			System.out.println(InputFrame.getSelectionModel().getSelectedItem());
+    			if (StateController.ValidateInput()) {
+    				newProperties = StateController.getValues();
+    				update = true;
+    				// Set the apropiate input reference frame
+    				switch (InputFrame.getSelectionModel().getSelectedItem()) {
+    				case "GCRF":
+    					newProperties.setProperty("Initial_state_format", "2");
+    				case "EME2000":
+    					newProperties.setProperty("Initial_state_format", "4");
+    				case "ITRF":
+    					newProperties.setProperty("Initial_state_format", "3");
+    				}
+    			}
+    	}
+    	if (update) {
+    		Set prop;
+    		String str;
+    		prop = newProperties.keySet();
+    		Iterator itr = prop.iterator();
+    		while(itr.hasNext()) {
+    			str = (String) itr.next();
+    			Parameters.setProperty(str, newProperties.getProperty(str));
+    		}
+    	}
+    		
+    }
     
     /*
      * --------------------------
