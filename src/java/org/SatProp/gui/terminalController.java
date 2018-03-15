@@ -3,12 +3,16 @@ package org.SatProp.gui;
 import java.io.IOException;
 
 import org.SatProp.propagator.Input;
+import org.SatProp.propagator.PropagatorDriver;
+import org.orekit.errors.OrekitException;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert.AlertType;
+
 
 public class terminalController {
 
@@ -45,23 +49,46 @@ public class terminalController {
         // TO DO
     	// Run the orbit propagator with the current stage of properties
     	
-    	// Mockup write something to the text area
-    	terminalOutput.appendText("Now I should be running some code\n");
-    	terminalOutput.appendText("IT should produce several outputs/n");
-    	terminalOutput.appendText("Now I am done\n");
-    	
-    	Input configuration = new Input();
-    	
-    	// Print initial values of input
-    	System.out.println("Printing file configuration");
-    	configuration.printValues();
-    	System.out.println("------End of file configuration-----\n");
-    	
-    	// get new configuaration
-    	System.out.println("\nPrinting  new user selected configuration");
-    	configuration.updateConfig(TabsController.getParameters());
-    	configuration.printValues();
-    	System.out.println("------End of user configuration-----\n");
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+//					Input configuration = new Input();
+//			    	
+//			    	// Print initial values of input
+//			    	System.out.println("Printing file configuration");
+//			    	configuration.printValues();
+//			    	System.out.println("------End of file configuration-----\n");
+//			    	
+//			    	// get new configuaration
+//			    	System.out.println("\nPrinting  new user selected configuration");
+//			    	configuration.updateConfig(TabsController.getParameters());
+//			    	configuration.printValues();
+//			    	System.out.println("------End of user configuration-----\n");
+			    	
+			    	// RUN Propagtion
+			    	Input configuration = new Input();
+			    	configuration.updateConfig(TabsController.getParameters());
+			    	PropagatorDriver.runPropagation(configuration);
+			    	
+				} catch (IOException | OrekitException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		}).start();
+//		Input configuration = new Input();   	
+//    	// Print initial values of input
+//    	System.out.println("Printing file configuration");
+//    	configuration.printValues();
+//    	System.out.println("------End of file configuration-----\n");
+//    	
+//    	// get new configuaration
+//    	System.out.println("\nPrinting  new user selected configuration");
+//    	configuration.updateConfig(TabsController.getParameters());
+//    	configuration.printValues();
+//    	System.out.println("------End of user configuration-----\n");
+//    	
     }
     
     /**
@@ -77,6 +104,10 @@ public class terminalController {
      */
     public void setConfigurationTab (configurationTabController configurationController) {
     	TabsController = configurationController;
+    }
+    
+    public TextArea getTerminalArea () {
+    	return terminalOutput;
     }
     
     

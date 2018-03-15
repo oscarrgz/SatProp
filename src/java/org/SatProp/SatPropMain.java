@@ -1,7 +1,9 @@
 package org.SatProp;
 
 import java.io.IOException;
+import java.io.PrintStream;
 
+import org.SatProp.gui.TerminalOutput;
 import org.SatProp.gui.configurationTabController;
 import org.SatProp.gui.terminalController;
 import org.SatProp.propagator.Input;
@@ -84,6 +86,13 @@ public class SatPropMain extends Application {
             
             //Give the controller access to the configuration tab
             the_terminal.setConfigurationTab(the_tabs);
+            
+            
+            // Set the terminal as the system.out
+            TerminalOutput console = new TerminalOutput(the_terminal.getTerminalArea());
+            PrintStream ps = new PrintStream(console, true);
+            System.setOut(ps);
+            System.setErr(ps);
             
         } catch (IOException e) {
             e.printStackTrace();
