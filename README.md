@@ -46,7 +46,7 @@ Graphical User Interface to propagate Earth Orbiting Objects based on the java l
 
 MIT License
 
-Copyright (c) 2017 Oscar Rodriguez Fernandez 
+Copyright (c) 2018 Oscar Rodriguez Fernandez 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
