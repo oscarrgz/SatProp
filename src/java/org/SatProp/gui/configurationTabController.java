@@ -5,8 +5,9 @@ import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
 
-import org.SatProp.SatPropMain;
+import org.SatProp.propagator.Input;
 import org.SatProp.util.DateUtil;
+
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -127,11 +128,18 @@ public class configurationTabController {
     @FXML
     private void initialize() {
     	// Dummy so far
-    	Parameters = new Properties();
+    	try {
+			Parameters = new Input().getParameters();
+		} catch (IOException e) {
+			Parameters = new Properties();
+		}
     	
     	initializeForceModelTab();
     	initializeConfigurationTab();
     	initializeOrbitInputTab();
+    	
+    	// Load the initial configuration as defined in parameters
+    	loadConfigurationState(Parameters);
     }
 	
     
@@ -172,6 +180,218 @@ public class configurationTabController {
     	InputFrame.getSelectionModel().selectedItemProperty().addListener( (observable, oldValue, newValue) -> handleInputModeChange(oldValue, newValue) );
     	// show the correct view
     	showInputMode ();
+    }
+    
+
+    /**
+     * Sets the values of the different fields to match the current configuration
+     * @param InputParams
+     */
+    public void loadConfigurationState (Properties InputParams) {
+
+    	// clean Previously existing state
+    	CleanFields();
+    	
+    	
+    	//Earth gravity
+    	gravModel.getSelectionModel().selectFirst();
+		int GravModel = Integer.parseInt(InputParams.getProperty("Earth_gravity").trim());
+		if (GravModel == 0 ) {
+			System.out.println("Using two-body model for Earth gravity");
+			gravModel.getSelectionModel().selectFirst();
+		} else {
+			order.setText(InputParams.getProperty("Earth_gravity_order").trim());
+			order.setText(InputParams.getProperty("Earth_gravity_order").trim());
+			if (GravModel ==1 ) {
+				// EGM96 gravity model
+				gravModel.getSelectionModel().select(2);
+			} else if (GravModel ==2) {
+				// GGM0C2C gravity model
+				gravModel.getSelectionModel().select(3);
+			} else if (GravModel ==3 ) {
+				// GGM0C2S gravity model
+				gravModel.getSelectionModel().select(4);
+			}
+		}
+    			
+		// Sun Gravity
+		int SunGravity = Integer.parseInt(InputParams.getProperty("Solar_gravity").trim());
+		if (SunGravity == 1) {
+			SolarGravOn.setSelected(true);
+		} else {
+			SolarGravOff.setSelected(true);
+		}
+    			
+		// Lunar Gravity
+		int MoonGravity = Integer.parseInt(InputParams.getProperty("Lunar_gravity").trim());
+		if (MoonGravity == 1) {
+			LunarGravOn.setSelected(true);
+		} else {
+			LunarGravOff.setSelected(true);
+		}
+		
+		// Sun radiation pressure
+		int SRP_switch = Integer.parseInt(InputParams.getProperty("Solar_Radiation_Pressure").trim());
+		if (SRP_switch ==1) {
+			SRPOn.setSelected(true);
+		} else {
+			SRPOff.setSelected(true);
+		}
+    			
+    	// Drag
+		if (Integer.parseInt(InputParams.getProperty("Drag").trim()) ==1) {
+			DragOn.setSelected(true);
+		} else {
+			DragOff.setSelected(false);
+		}
+		
+		// Planetary gravity
+		int Planetary_grav = Integer.parseInt(InputParams.getProperty("Planet_gravity").trim());
+		if (Planetary_grav ==1) {
+			PlanetGravAll.setSelected(true);
+			// turn all on
+			handlePlanetaryGrav();
+			// check those who should be off
+			// 1
+			if (Integer.parseInt(InputParams.getProperty("Mercury").trim()) !=1) {
+				Mercury.setSelected(false);
+			}
+			// 2
+			if (Integer.parseInt(InputParams.getProperty("Venus").trim()) !=1) {
+				Venus.setSelected(false);
+			}
+			// 4
+			if (Integer.parseInt(InputParams.getProperty("Mars").trim()) !=1) {
+				Mars.setSelected(false);
+			}
+			// 5
+			if (Integer.parseInt(InputParams.getProperty("Jupiter").trim()) !=1) {
+				Jupiter.setSelected(false);
+			}
+			// 6
+			if (Integer.parseInt(InputParams.getProperty("Saturn").trim()) !=1) {
+				Saturn.setSelected(false);
+			}
+			// 7
+			if (Integer.parseInt(InputParams.getProperty("Uranus").trim()) !=1) {
+				Uranus.setSelected(false);
+			}
+			// 8
+			if (Integer.parseInt(InputParams.getProperty("Neptune").trim()) !=1) {
+				Neptune.setSelected(false);
+			}
+			// 9
+			if (Integer.parseInt(InputParams.getProperty("Pluto").trim()) !=1) {
+				Pluto.setSelected(false);
+			}
+		} else {
+			// turn off planetary gravity
+	    	PlanetGravAll.setSelected(false);
+	    	handlePlanetaryGrav();
+		}
+
+    	Atmosphere.getSelectionModel().selectFirst();
+     	
+    	/*
+    	 * Configuration tab
+    	 */
+    	DataFolder.setText(InputParams.getProperty("Data_path"));
+    	
+    	switch (InputParams.getProperty("End_format").trim()) {
+    		
+    			case "1":
+    			case "2":{	
+    				Final_date.setSelected(true);
+    			}
+    			case "3": {
+    				PropagationinSeconds.setSelected(true);
+    			}
+    			case "4":{
+    				PropagationinDays.setSelected(true);
+    			}
+    	}
+    	PropagationTime.setText(InputParams.getProperty("End_epoch"));
+    				
+    	Output_TimeStep.setText(InputParams.getProperty("outTimeStep"));
+    	
+    	OutputFileName.setText(InputParams.getProperty("outputFile"));
+    	
+    	// Orbit Input
+    	int input_state_format = Integer.parseInt(InputParams.getProperty("Initial_state_format").trim());
+		switch (input_state_format) {
+		case 1: 
+			// Orbital Elements
+			InputFrame.getSelectionModel().select(0);
+			OrbitController.loadConfigurationState(InputParams);
+			break;
+		case 2: 
+			// GCRF
+			InputFrame.getSelectionModel().select(1);
+			StateController.loadConfigurationState(InputParams);
+			break;
+		case 3: 
+			// ITRF
+			InputFrame.getSelectionModel().select(2);
+			StateController.loadConfigurationState(InputParams);
+			break;
+		case 4: 
+			// EME200
+			InputFrame.getSelectionModel().select(3);
+			StateController.loadConfigurationState(InputParams);
+			break;
+		case 5: 
+			//TLE
+			InputFrame.getSelectionModel().select(4);
+			break;
+		default:
+			break;
+		}
+		
+		
+	}
+   
+    /*
+     * Default State
+     */
+    public void CleanFields () {
+    	/*
+    	 * Force Model
+    	 */
+    	PlanetGravAll.setSelected(true);
+    	handlePlanetaryGrav();
+    	
+    	gravModel.getSelectionModel().selectFirst();
+    	Atmosphere.getSelectionModel().selectFirst();
+    	order.setText("");
+    	degree.setText("");
+    	// All On
+    	PlanetGravAll.setSelected(true);
+    	handlePlanetaryGrav();
+    	LunarGravOn.setSelected(true);
+    	SolarGravOn.setSelected(true);
+    	DragOn.setSelected(true);
+    	SRPOn.setSelected(true);
+    	
+    	/*
+    	 * Configuration
+    	 */
+    	DataFolder.setText("");
+    	PropagationinDays.setSelected(true);
+    	PropagationTime.setText("");
+    	Output_TimeStep.setText("");
+    	OutputFrame.getSelectionModel().selectFirst();
+    	OutputFileName.setText("");
+    	
+    	/*
+    	 * Initial State
+    	 */
+    	InputFrame.getSelectionModel().selectFirst();
+    	if (OrbitController != null) {
+    		OrbitController.CleanFields();
+    	} else if (StateController != null) {
+    		StateController.CleanFields();
+    	}
+    	
     }
     
     
@@ -587,10 +807,10 @@ public class configurationTabController {
     			Parameters.setProperty("End_format", "2");
     		} else if (PropagationinDays.isSelected()) {
     			// duration in days
-    			Parameters.setProperty("End_format", "3");
+    			Parameters.setProperty("End_format", "4");
     		} else {
     			// Duration in seconds
-    			Parameters.setProperty("End_format", "4");
+    			Parameters.setProperty("End_format", "3");
     		}
     		// Set duration of propagation
     		Parameters.setProperty("End_epoch", PropagationTime.getText());

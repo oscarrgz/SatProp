@@ -1,5 +1,6 @@
 package org.SatProp.gui;
 
+import java.util.List;
 import java.util.Properties;
 
 import org.SatProp.util.DateUtil;
@@ -117,6 +118,39 @@ public class inputOrbitalElementsController {
     	orbitalProperties.setProperty("SGP4_propagator", "0");
     	return orbitalProperties;
     }
-    
+    public void CleanFields () {
+    	EpochText.setText("");
+    	AtoMText.setText("");
+    	CDText.setText("");
+    	CRText.setText("");
+    	SemiMajorAxisText.setText("");
+    	EccentricityText.setText("");
+    	InclinationText.setText("");
+    	RAANText.setText("");
+    	ArgPText.setText("");
+    	TrueAnomalyText.setText("");
+    }
 	
+    public void loadConfigurationState (Properties InputParams) {
+    	// clean previous values
+    	CleanFields();
+    	// GET EPOCH
+    	EpochText.setText(InputParams.getProperty("Start_Epoch"));
+    	
+    	// Get position and velocity
+    	if (Validator.is6DVector(InputParams.getProperty("Orbital_Elements"))) {
+    		List<Double> components = Validator.getdoubleComponents(InputParams.getProperty("Orbital_Elements"));
+    		SemiMajorAxisText.setText(components.get(0).toString());
+        	EccentricityText.setText(components.get(1).toString());
+        	InclinationText.setText(components.get(2).toString());
+        	RAANText.setText(components.get(3).toString());
+        	ArgPText.setText(components.get(4).toString());
+        	TrueAnomalyText.setText(components.get(5).toString());
+    	}
+    	
+    	// Get dynamic model properties
+    	AtoMText.setText(InputParams.getProperty("atoM"));
+    	CDText.setText(InputParams.getProperty("CD"));
+    	CRText.setText(InputParams.getProperty("CR"));
+    }
 }

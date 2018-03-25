@@ -49,20 +49,7 @@ public class terminalController {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				try {
-//					Input configuration = new Input();
-//			    	
-//			    	// Print initial values of input
-//			    	System.out.println("Printing file configuration");
-//			    	configuration.printValues();
-//			    	System.out.println("------End of file configuration-----\n");
-//			    	
-//			    	// get new configuaration
-//			    	System.out.println("\nPrinting  new user selected configuration");
-//			    	configuration.updateConfig(TabsController.getParameters());
-//			    	configuration.printValues();
-//			    	System.out.println("------End of user configuration-----\n");
-			    	
+				try {			    	
 			    	// RUN Propagtion
 			    	Input configuration = new Input();
 			    	configuration.updateConfig(TabsController.getParameters());
