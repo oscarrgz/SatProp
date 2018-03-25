@@ -200,8 +200,6 @@ public class configurationTabController {
 			System.out.println("Using two-body model for Earth gravity");
 			gravModel.getSelectionModel().selectFirst();
 		} else {
-			order.setText(InputParams.getProperty("Earth_gravity_order").trim());
-			order.setText(InputParams.getProperty("Earth_gravity_order").trim());
 			if (GravModel ==1 ) {
 				// EGM96 gravity model
 				gravModel.getSelectionModel().select(2);
@@ -212,6 +210,8 @@ public class configurationTabController {
 				// GGM0C2S gravity model
 				gravModel.getSelectionModel().select(4);
 			}
+			order.setText(InputParams.getProperty("Earth_gravity_order").trim());
+			degree.setText(InputParams.getProperty("Earth_gravity_degree").trim());
 		}
     			
 		// Sun Gravity
