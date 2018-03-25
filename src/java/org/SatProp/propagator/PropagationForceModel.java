@@ -4,30 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.orekit.bodies.BodyShape;
+
 import org.orekit.bodies.CelestialBodyFactory;
 import org.orekit.bodies.OneAxisEllipsoid;
 import org.orekit.errors.OrekitException;
 import org.orekit.forces.ForceModel;
 import org.orekit.forces.drag.DragForce;
-import org.orekit.forces.drag.DragSensitive;
 import org.orekit.forces.drag.IsotropicDrag;
 import org.orekit.forces.drag.atmosphere.Atmosphere;
 import org.orekit.forces.drag.atmosphere.HarrisPriester;
-import org.orekit.forces.drag.atmosphere.NRLMSISE00;
-import org.orekit.forces.drag.atmosphere.NRLMSISE00InputParameters;
 import org.orekit.forces.gravity.HolmesFeatherstoneAttractionModel;
 import org.orekit.forces.gravity.NewtonianAttraction;
 import org.orekit.forces.gravity.ThirdBodyAttraction;
 import org.orekit.forces.gravity.potential.GravityFieldFactory;
 import org.orekit.forces.gravity.potential.ICGEMFormatReader;
 import org.orekit.forces.radiation.IsotropicRadiationSingleCoefficient;
-import org.orekit.forces.radiation.RadiationSensitive;
 import org.orekit.forces.radiation.SolarRadiationPressure;
 import org.orekit.frames.FramesFactory;
 import org.orekit.utils.Constants;
 import org.orekit.utils.IERSConventions;
-import org.orekit.utils.PVCoordinatesProvider;
+
 
 /** 
  * Generates a Force Model compatible with SPOOK
@@ -155,10 +151,10 @@ public class PropagationForceModel {
 			double cross = Double.parseDouble(InputParams.getProperty("atoM"));
 			
 			// Earth shape
-			final BodyShape earth = 
-					new OneAxisEllipsoid(Constants.WGS84_EARTH_EQUATORIAL_RADIUS,
-										Constants.WGS84_EARTH_FLATTENING, 
-										FramesFactory.getITRF(IERSConventions.IERS_2010, false));
+//			final BodyShape earth = 
+//					new OneAxisEllipsoid(Constants.WGS84_EARTH_EQUATORIAL_RADIUS,
+//										Constants.WGS84_EARTH_FLATTENING, 
+//										FramesFactory.getITRF(IERSConventions.IERS_2010, false));
 			
 			// To construct the Atmosphere for the NRLMSISE00 we need to read input parameters
 			// Not directly provided by orekit. Future development

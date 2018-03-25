@@ -7,15 +7,11 @@ import org.hipparchus.ode.ODEIntegrator;
 import org.hipparchus.ode.nonstiff.DormandPrince54Integrator;
 import org.orekit.errors.OrekitException;
 import org.orekit.forces.ForceModel;
-import org.orekit.forces.gravity.HolmesFeatherstoneAttractionModel;
 import org.orekit.forces.gravity.NewtonianAttraction;
-import org.orekit.forces.gravity.potential.GravityFieldFactory;
-import org.orekit.frames.FramesFactory;
 import org.orekit.orbits.Orbit;
 import org.orekit.propagation.SpacecraftState;
 import org.orekit.propagation.numerical.NumericalPropagator;
 import org.orekit.utils.Constants;
-import org.orekit.utils.IERSConventions;
 import org.orekit.time.AbsoluteDate;
 
 public class OrbitPropagator {

@@ -6,12 +6,9 @@ import org.SatProp.propagator.Input;
 import org.SatProp.propagator.PropagatorDriver;
 import org.orekit.errors.OrekitException;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.Alert.AlertType;
 
 
 public class terminalController {
