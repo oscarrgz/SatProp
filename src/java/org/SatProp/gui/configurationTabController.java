@@ -115,6 +115,8 @@ public class configurationTabController {
 	
 	private inputStateVectorController StateController;
 	
+	private inputTLEController TLEController;
+	
 	private Properties Parameters;
 	
 	/*
@@ -408,15 +410,15 @@ public class configurationTabController {
     	String two_body = gravModel.getItems().get(0).toString();
     	if (newvalue.equals(two_body)){
     		// Two- Body case-> disable order and degree
-    		order.setEditable(false);
+    		order.setDisable(true);
     		order.setText("0");
-    		degree.setEditable(false);
+    		degree.setDisable(true);
     		degree.setText("0");
     	} else if ( oldvalue.equals(two_body)) {
     		// Re-enable order and degree
-    		order.setEditable(true);
+    		order.setDisable(false);
     		order.setText("2");
-    		degree.setEditable(true);
+    		degree.setDisable(false);
     		degree.setText("2");
     	}
     	
@@ -643,6 +645,7 @@ public class configurationTabController {
             AnchorPane TLEView;
 			try {
 				TLEView = (AnchorPane) loader.load();
+				TLEController = loader.getController();
 				// Set person overview into the bottom of root layout.
 	            OrbitInputPane.setCenter(TLEView);
 			} catch (IOException e) {
