@@ -3,6 +3,9 @@
  */
 package org.SatProp.util;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -84,7 +87,7 @@ public class Validator {
 			return false;
 		}
 	}
-	public static boolean is3DVecor (String text){
+	public static boolean is3DVector (String text){
 		Pattern Vector3Dpatt = Pattern.compile("\\s*"+Patterns.double_num+"\\s+" +Patterns.double_num+"\\s+"+Patterns.double_num+"\\s*" );
 		if (text == null || text.length() == 0)  {
 			return false;
@@ -96,6 +99,41 @@ public class Validator {
 				return false;
 			}
 		}
+	}
+	
+	public static boolean is6DVector (String text){
+		String Vector6Dstr="\\s*";
+		
+		for (int i=1; i<=6; i+=1) {
+			Vector6Dstr += "("+Patterns.double_num+")";
+			if (i< 6) {
+				Vector6Dstr += "\\s+";
+			} else {
+				Vector6Dstr += "\\s*";
+			}
+		}
+		Pattern Vector6Dpatt = Pattern.compile(Vector6Dstr);
+		if (text == null || text.length() == 0)  {
+			return false;
+		} else {
+			Matcher aVector = Vector6Dpatt.matcher(text); 	
+			if (aVector.find()) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+	
+	public static List<Double> getdoubleComponents (String text) {
+		Pattern DoublePatt = Pattern.compile("("+Patterns.double_num+")");
+		Matcher aDouble = DoublePatt.matcher(text);
+		List<Double> components = new ArrayList<Double>();
+		while (aDouble.find()) {
+			components.add(Double.parseDouble(aDouble.group(0)));
+		} 
+	
+		return components;
 	}
 	
 }

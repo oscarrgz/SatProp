@@ -1,19 +1,19 @@
 package org.SatProp.propagator;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+
 
 import org.SatProp.util.DateUtil;
+import org.SatProp.util.Validator;
 import org.hipparchus.geometry.euclidean.threed.Vector3D;
 import org.orekit.errors.OrekitException;
 import org.orekit.frames.Frame;
@@ -26,8 +26,6 @@ import org.orekit.propagation.SpacecraftState;
 import org.orekit.propagation.analytical.tle.TLE;
 import org.orekit.propagation.analytical.tle.TLEPropagator;
 import org.orekit.time.AbsoluteDate;
-import org.orekit.time.TimeScale;
-import org.orekit.time.TimeScalesFactory;
 import org.orekit.utils.Constants;
 import org.orekit.utils.IERSConventions;
 import org.orekit.utils.PVCoordinates;
@@ -109,29 +107,15 @@ public class Input {
 	public Orbit getInitialOrbit() throws OrekitException{
 		// Gets the initial user-supplied orbit
 		Orbit initialOrbit;
-		String double_number = "([+-]?[0-9]+(?:\\.[0-9]*)?)";
-		String pattern_string="\\s*";
-		for (int i=1; i<=6; i+=1) {
-			pattern_string += double_number;
-			if (i< 6) {
-				pattern_string += "\\s+";
-			} else {
-				pattern_string += "\\s*";
-			}
-		}
-		
-		Pattern Double_6 = Pattern.compile(pattern_string);
 		// Get initial date
 		AbsoluteDate epoch = DateUtil.readDate(this.parameters.getProperty("Start_Epoch"));
-		// Get inital StateVector
+		// Get initial StateVector
 		// Select frame
 		int input_state_format = Integer.parseInt(this.parameters.getProperty("Initial_state_format").trim());
 		Frame frame = FramesFactory.getGCRF();
 		// ORBITAL ELEMENTS
 		if (input_state_format == 1) {
 			frame = FramesFactory.getGCRF();
-			Matcher Double_6_match = Double_6.matcher(this.parameters.getProperty("Orbital_Elements"));
-
 			// Get values
 			double a = 42000*1000.0;
 			double ecc = 0;
@@ -140,14 +124,15 @@ public class Input {
 			double argP = 0;
 			double TA = 0;
 			
-			if (Double_6_match.find()) {
-				
-				 a = Double.parseDouble(Double_6_match.group(1))*1000.0;
-				 ecc = Math.toRadians(Double.parseDouble(Double_6_match.group(2)));
-				 inc = Math.toRadians(Double.parseDouble(Double_6_match.group(3)));
-				 RAAN = Math.toRadians(Double.parseDouble(Double_6_match.group(4)));
-				 argP = Math.toRadians(Double.parseDouble(Double_6_match.group(5)));
-				 TA = Math.toRadians(Double.parseDouble(Double_6_match.group(6)));
+			if (Validator.is6DVector(this.parameters.getProperty("Orbital_Elements"))) {
+				 List<Double> components = Validator.getdoubleComponents(this.parameters.getProperty("Orbital_Elements"));
+				 
+				 a = components.get(0)*1000.0;
+				 ecc = Math.toRadians(components.get(1));
+				 inc = Math.toRadians(components.get(2));
+				 RAAN = Math.toRadians(components.get(3));
+				 argP = Math.toRadians(components.get(4));
+				 TA = Math.toRadians(components.get(5));
 
 			} else {
 				System.out.println(
@@ -178,15 +163,13 @@ public class Input {
 				frame = FramesFactory.getEME2000();
 			}
 			// Read PV coordinates
-			Matcher Double_6_match = Double_6.matcher(this.parameters.getProperty("StateVector"));
 			Vector3D pos = null;
 			Vector3D vel = null;
-			if (Double_6_match.find()) {
-				for (int i=0; i<=6; i+=1) {
-					System.out.println("State " + i +" = " +Double_6_match.group(i));
-				}
-				pos = new Vector3D(Double.parseDouble(Double_6_match.group(1)), Double.parseDouble(Double_6_match.group(2)),Double.parseDouble(Double_6_match.group(3)));
-				vel = new Vector3D(Double.parseDouble(Double_6_match.group(4)), Double.parseDouble(Double_6_match.group(5)),Double.parseDouble(Double_6_match.group(6)));
+			if (Validator.is6DVector(this.parameters.getProperty("StateVector"))) {
+				List<Double> components = Validator.getdoubleComponents(this.parameters.getProperty("StateVector"));
+				 
+				pos = new Vector3D(components.get(0), components.get(1), components.get(2));
+				vel = new Vector3D(components.get(3), components.get(4), components.get(5));
 				pos = pos.scalarMultiply(1000.0);
 				vel = vel.scalarMultiply(1000.0);
 			} else {
