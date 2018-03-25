@@ -344,6 +344,7 @@ public class configurationTabController {
 		case 5: 
 			//TLE
 			InputFrame.getSelectionModel().select(4);
+			TLEController.loadConfigurationState(InputParams);
 			break;
 		default:
 			break;
@@ -392,6 +393,8 @@ public class configurationTabController {
     		OrbitController.CleanFields();
     	} else if (StateController != null) {
     		StateController.CleanFields();
+    	} else if (TLEController !=null) {
+    		TLEController.CleanFields();
     	}
     	
     }
@@ -694,13 +697,19 @@ public class configurationTabController {
     	switch (InputFrame.getSelectionModel().getSelectedItem()) {
     		case "TLE":
     			// TODO
-//    			newProperties.setProperty("Initial_state_format", "5");
+    			if (TLEController.ValidateInput()) {
+    				newProperties = TLEController.getValues();
+    				update = true;
+    				newProperties.setProperty("Initial_state_format", "5");
+    			}
+    			break;
     		case "Orbital Elements":
     			if (OrbitController.ValidateInput()) {
     				newProperties = OrbitController.getValues();
     				update = true;
     				newProperties.setProperty("Initial_state_format", "1");
     			}
+    			break;
     		default:
     			System.out.println(InputFrame.getSelectionModel().getSelectedItem());
     			if (StateController.ValidateInput()) {
@@ -710,12 +719,16 @@ public class configurationTabController {
     				switch (InputFrame.getSelectionModel().getSelectedItem()) {
     				case "GCRF":
     					newProperties.setProperty("Initial_state_format", "2");
+    					break;
     				case "EME2000":
     					newProperties.setProperty("Initial_state_format", "4");
+    					break;
     				case "ITRF":
     					newProperties.setProperty("Initial_state_format", "3");
+    					break;
     				}
     			}
+    			break;
     	}
     	if (update) {
     		Set prop;

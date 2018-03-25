@@ -3,7 +3,7 @@
  */
 package org.SatProp.gui;
 
-import java.awt.TextField;
+
 import java.util.List;
 import java.util.Properties;
 
@@ -13,6 +13,8 @@ import org.SatProp.util.Validator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.Alert.AlertType;
 
@@ -35,6 +37,13 @@ public class inputTLEController {
 	@FXML
 	private CheckBox UseSGP4Box;
 	
+	@FXML
+	private Label SGP4Label;
+	
+	private String LastCR;
+	private String LastCD;
+	private String LastAtoM;
+	
 
 	/**
      * Initializes the controller class. This method is automatically called
@@ -42,8 +51,10 @@ public class inputTLEController {
      */
     @FXML
     private void initialize() {
-    	// tooltip
     	
+    	SGP4Label.setTooltip(new Tooltip("IF checked no numerical propagation using the user-selected force model is performed. Only SGP4 theory is used"));
+    	// SGP4 model
+    	UseSGP4Box.selectedProperty().addListener( (observable, oldValue, newValue) -> handleSGP4button() );
     }
     
     public boolean ValidateInput() {
@@ -53,16 +64,18 @@ public class inputTLEController {
     	if (!Validator.isTLE(TLE_Line1_Text.getText(), TLE_Line2_Text.getText())) {
     		errorMessage += "TLE format is not correct";
     	}
-    	if (!Validator.isPositiveDouble(AtoMText.getText())) {
-    		errorMessage += "Area to Mass Ratio must be a positive number \n";
-    	}
-    	if (!Validator.isPositiveDouble(CDText.getText())) {
-    		errorMessage += "Drag Coefficient must be a positive number \n";
-    	}
-    	if (!Validator.isPositiveDouble(CRText.getText())) {
-    		errorMessage += "Reflectivity Coefficient must be a positive number \n";
-    	}
     	
+    	if (!UseSGP4Box.isSelected()) {
+    		if (!Validator.isPositiveDouble(AtoMText.getText())) {
+    			errorMessage += "Area to Mass Ratio must be a positive number \n";
+    		}
+    		if (!Validator.isPositiveDouble(CDText.getText())) {
+    			errorMessage += "Drag Coefficient must be a positive number \n";
+    		}
+    		if (!Validator.isPositiveDouble(CRText.getText())) {
+    			errorMessage += "Reflectivity Coefficient must be a positive number \n";
+    		}
+    	}
     	if (errorMessage.length() == 0) {
 			return true;
 		} else {
@@ -109,16 +122,42 @@ public class inputTLEController {
     	// clean previous values
     	CleanFields();
     	
-    	
-    	
     	TLE_Line1_Text.setText(InputParams.getProperty("TLE_1"));
     	TLE_Line2_Text.setText(InputParams.getProperty("TLE_2"));
-    	
     	
     	// Get dynamic model properties
     	AtoMText.setText(InputParams.getProperty("atoM"));
     	CDText.setText(InputParams.getProperty("CD"));
     	CRText.setText(InputParams.getProperty("CR"));
+    }
+    
+    public void handleSGP4button () {
+    	if (UseSGP4Box.isSelected()) {
+    		// Save current values of CD, CR and AtoM
+    		// and disable fields
+    		LastAtoM = AtoMText.getText();
+    		LastCR = CRText.getText();
+    		LastCD = CDText.getText();
+    		
+    		AtoMText.setText("");
+        	CDText.setText("");
+        	CRText.setText("");
+        	
+        	AtoMText.setDisable(true);
+        	CDText.setDisable(true);
+        	CRText.setDisable(true);
+    	} else {
+    		// Write the last saved value of 
+    		// CR, CD and AtoM and enable the fields
+    		AtoMText.setText(LastAtoM);
+        	CDText.setText(LastCD);
+        	CRText.setText(LastCR);
+        	AtoMText.setDisable(false);
+        	CDText.setDisable(false);
+        	CRText.setDisable(false);
+        	
+    	}
+    	
     }
 }
     

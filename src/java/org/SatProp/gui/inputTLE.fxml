@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.SatProp.gui.inputTLEController">
    <children>
       <GridPane layoutX="79.0" layoutY="99.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
         <columnConstraints>
@@ -26,16 +26,16 @@
          <children>
             <Label text="TLE Line 1" />
             <Label text="TLE Line 2" GridPane.rowIndex="1" />
-            <Label text="Use SGP4 Model for Propagation" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="SGP4Label" text="Use SGP4 Model for Propagation" GridPane.rowIndex="2" />
+            <TextField fx:id="TLE_Line1_Text" GridPane.columnIndex="1" />
+            <TextField fx:id="TLE_Line2_Text" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <CheckBox fx:id="UseSGP4Box" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Drag Coefficient (CD)" GridPane.rowIndex="4" />
             <Label text="Area to Mass Ratio [m**2/Kg]" GridPane.rowIndex="3" />
             <Label text="Reflectivity Coefficient (CR)" GridPane.rowIndex="5" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="CRText" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="CDText" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="AtoMText" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>
