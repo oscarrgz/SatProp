@@ -135,4 +135,23 @@ public class Validator {
 		return components;
 	}
 	
+	public static boolean isTLE (String TLE_1, String TLE_2) {
+		
+		if (TLE_1==null|| TLE_1.length() ==0 |TLE_2==null|| TLE_2.length() ==0 ) {
+			return false;
+		}
+		
+		Pattern Line_1 = Pattern.compile(Patterns.TLE_1);
+		if (Line_1.matcher(TLE_1).find()) {
+			Pattern Line_2 = Pattern.compile(Patterns.TLE_2);
+			if (Line_2.matcher(TLE_2).find()) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+		
+	}
 }
