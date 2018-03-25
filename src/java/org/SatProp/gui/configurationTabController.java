@@ -190,7 +190,10 @@ public class configurationTabController {
      * @param InputParams
      */
     public void loadConfigurationState (Properties InputParams) {
-
+    	
+    	// Save new parameters
+    	Parameters = InputParams;
+    	
     	// clean Previously existing state
     	CleanFields();
     	

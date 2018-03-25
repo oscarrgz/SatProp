@@ -5,6 +5,7 @@ import java.io.PrintStream;
 
 import org.SatProp.gui.TerminalOutput;
 import org.SatProp.gui.configurationTabController;
+import org.SatProp.gui.rootLayoutController;
 import org.SatProp.gui.terminalController;
 import org.SatProp.propagator.Input;
 
@@ -30,6 +31,8 @@ public class SatPropMain extends Application {
     private terminalController the_terminal;
     // controller of tabs
     private configurationTabController the_tabs;
+    // Root LayputController
+    private rootLayoutController rootController;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -43,7 +46,8 @@ public class SatPropMain extends Application {
         
         showTerminalView();
         
-        
+        // Get access for the root controller to the configuration tabs
+        rootController.setConfigurationController(the_tabs);
         
 	}
 
@@ -58,7 +62,10 @@ public class SatPropMain extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(SatPropMain.class.getResource("gui/rootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
-
+            
+            // Get controller and pass the Stage
+            rootController = loader.getController();
+            rootController.setStage(primaryStage);
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);

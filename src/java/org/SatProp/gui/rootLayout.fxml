@@ -5,13 +5,14 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane prefHeight="700.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141">
+<BorderPane prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.SatProp.gui.rootLayoutController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
+                  <MenuItem fx:id="LoadFileItem" mnemonicParsing="false" onAction="#LoadFile" text="Load File" />
+                  <MenuItem fx:id="ReloadItem" mnemonicParsing="false" text="Reload" />
               <MenuItem mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
