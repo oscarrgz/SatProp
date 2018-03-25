@@ -107,7 +107,7 @@ public class SatPropMain extends Application {
     		// Load configuration tabs
     		FXMLLoader loader = new FXMLLoader();
             loader.setLocation(SatPropMain.class.getResource("gui/configurationTabsLayout.fxml"));
-            TabPane ConfigurationTabs = (TabPane) loader.load();
+            AnchorPane ConfigurationTabs = (AnchorPane) loader.load();
             the_tabs = loader.getController();
             // Set configuration tab into the center of root layout
             rootLayout.setCenter(ConfigurationTabs);

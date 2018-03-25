@@ -19,222 +19,229 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.SatProp.gui.configurationTabController">
-  <tabs>
-    <Tab text="Satellite State">
-      <content>
-            <BorderPane fx:id="OrbitInputPane">
-               <top>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Label text="Input Method" />
-                        <ChoiceBox fx:id="InputFrame" prefWidth="150.0" />
-                     </children>
-                  </HBox>
-               </top>
-               <bottom>
-                  <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="TOP_RIGHT">
-                     <buttons>
-                        <Button mnemonicParsing="false" onAction="#handleSaveOrbit" text="Save" />
-                     </buttons>
-                     <BorderPane.margin>
-                        <Insets bottom="10.0" right="40.0" />
-                     </BorderPane.margin>
-                  </ButtonBar>
-               </bottom>
-            </BorderPane>
-      </content>
-    </Tab>
-    <Tab text="Force Model">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="322.0" prefWidth="655.0">
-               <children>
-                  <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="5.0" spacing="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-                     <children>
-                        <GridPane>
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.SatProp.gui.configurationTabController">
+   <children>
+      <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="Satellite State">
+            <content>
+                  <BorderPane fx:id="OrbitInputPane">
+                     <top>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Label text="Earth Gravity" />
-                              <Label text="Lunar Gravity" GridPane.rowIndex="2" />
-                              <Label prefHeight="34.0" prefWidth="96.0" text="Solar Gravity" GridPane.rowIndex="3" />
-                              <Label text="Solar Radiation Pressure" GridPane.rowIndex="4" />
-                              <Label text="Drag" GridPane.rowIndex="5" />
-                              <Label text="Atmospheric Model" GridPane.rowIndex="6" />
-                              <Label text="Planetary Gravity" GridPane.rowIndex="7" />
-                              <RadioButton fx:id="LunarGravOn" mnemonicParsing="false" text="On" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="LunarGrav" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="SolarGravOn" mnemonicParsing="false" text="On" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="SolarGrav" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="SRPOn" mnemonicParsing="false" text="On" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="SRP" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="DragOn" mnemonicParsing="false" text="On" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="Drag" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="PlanetGravAll" mnemonicParsing="false" onAction="#handlePlanetaryGrav" text="On" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="PlanetGrav" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="LunarGravOff" mnemonicParsing="false" text="Off" toggleGroup="$LunarGrav" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                              <RadioButton fx:id="SolarGravOff" mnemonicParsing="false" text="Off" toggleGroup="$SolarGrav" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                              <RadioButton fx:id="SRPOff" mnemonicParsing="false" text="Off" toggleGroup="$SRP" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                              <RadioButton fx:id="DragOff" mnemonicParsing="false" text="Off" toggleGroup="$Drag" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                              <RadioButton fx:id="PlanetGravOff" mnemonicParsing="false" onAction="#handlePlanetaryGrav" text="Off" toggleGroup="$PlanetGrav" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <children>
-                                    <Label prefHeight="21.0" prefWidth="78.0" text="Order">
-                                       <HBox.margin>
-                                          <Insets left="10.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <TextField fx:id="order" prefHeight="31.0" prefWidth="122.0">
-                                       <HBox.margin>
-                                          <Insets left="50.0" />
-                                       </HBox.margin>
-                                    </TextField>
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                 <children>
-                                    <Label prefHeight="21.0" prefWidth="108.0" text="Degree">
-                                       <HBox.margin>
-                                          <Insets left="10.0" top="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <TextField fx:id="degree" prefHeight="31.0" prefWidth="122.0">
-                                       <HBox.margin>
-                                          <Insets left="50.0" />
-                                       </HBox.margin>
-                                    </TextField>
-                                 </children>
-                              </HBox>
-                              <ChoiceBox fx:id="gravModel" prefHeight="31.0" prefWidth="201.0" GridPane.columnIndex="1">
-                                 <GridPane.margin>
-                                    <Insets bottom="10.0" />
-                                 </GridPane.margin>
-                                 <padding>
-                                    <Insets top="-5.0" />
-                                 </padding>
-                              </ChoiceBox>
-                              <ChoiceBox fx:id="Atmosphere" prefHeight="20.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                                 <GridPane.margin>
-                                    <Insets bottom="10.0" top="10.0" />
-                                 </GridPane.margin>
-                                 <padding>
-                                    <Insets top="-5.0" />
-                                 </padding>
-                              </ChoiceBox>
-                              <CheckBox fx:id="Mercury" mnemonicParsing="false" text="Mercury" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                              <CheckBox fx:id="Venus" mnemonicParsing="false" text="Venus" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-                              <CheckBox fx:id="Mars" mnemonicParsing="false" text="Mars" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                              <CheckBox fx:id="Jupiter" mnemonicParsing="false" text="Jupiter" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-                              <CheckBox fx:id="Saturn" mnemonicParsing="false" text="Staturn" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                              <CheckBox fx:id="Uranus" mnemonicParsing="false" text="Uranus" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-                              <CheckBox fx:id="Neptune" mnemonicParsing="false" text="Neptune" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                              <CheckBox fx:id="Pluto" mnemonicParsing="false" text="Pluto" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                              <Label text="Input Method" />
+                              <ChoiceBox fx:id="InputFrame" prefWidth="150.0" />
                            </children>
-                        </GridPane>
-                        <ButtonBar prefHeight="40.0" prefWidth="200.0">
-                          <buttons>
-                            <Button mnemonicParsing="false" onAction="#handleSaveForceModel" text="Save" />
-                          </buttons>
+                        </HBox>
+                     </top>
+                     <bottom>
+                        <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="TOP_RIGHT">
+                           <buttons>
+                              <Button mnemonicParsing="false" onAction="#handleSaveOrbit" text="Save" />
+                           </buttons>
+                           <BorderPane.margin>
+                              <Insets bottom="10.0" right="40.0" />
+                           </BorderPane.margin>
                         </ButtonBar>
-                     </children>
-                  </VBox>
-               </children></AnchorPane>
-      </content>
-    </Tab>
-    <Tab text="Configuration">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" spacing="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                     </bottom>
+                  </BorderPane>
+            </content>
+          </Tab>
+          <Tab text="Force Model">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="322.0" prefWidth="655.0">
                      <children>
-                        <GridPane prefHeight="461.0" prefWidth="600.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="185.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="435.0" minWidth="10.0" prefWidth="395.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
+                        <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="5.0" spacing="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                            <children>
-                              <Label text="Data Folder" />
-                              <Label text="Propagation Time" GridPane.rowIndex="1" />
-                              <Label text="Output Time Step" GridPane.rowIndex="3" />
-                              <Label text="Output Frame" GridPane.rowIndex="4" />
-                              <Label text="Output File Name" GridPane.rowIndex="5" />
-                              <TextField fx:id="DataFolder" GridPane.columnIndex="1" />
-                              <TextField fx:id="PropagationTime" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField fx:id="Output_TimeStep" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <TextField fx:id="OutputFileName" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <GridPane>
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
                                  <children>
-                                    <RadioButton fx:id="PropagationinDays" mnemonicParsing="false" text="Days">
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
+                                    <Label text="Earth Gravity" />
+                                    <Label text="Lunar Gravity" GridPane.rowIndex="2" />
+                                    <Label prefHeight="34.0" prefWidth="96.0" text="Solar Gravity" GridPane.rowIndex="3" />
+                                    <Label text="Solar Radiation Pressure" GridPane.rowIndex="4" />
+                                    <Label text="Drag" GridPane.rowIndex="5" />
+                                    <Label text="Atmospheric Model" GridPane.rowIndex="6" />
+                                    <Label text="Planetary Gravity" GridPane.rowIndex="7" />
+                                    <RadioButton fx:id="LunarGravOn" mnemonicParsing="false" text="On" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                        <toggleGroup>
-                                          <ToggleGroup fx:id="PropagationTimeIn" />
+                                          <ToggleGroup fx:id="LunarGrav" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton fx:id="PropagationinSeconds" mnemonicParsing="false" text="Seconds" toggleGroup="$PropagationTimeIn">
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
+                                    <RadioButton fx:id="SolarGravOn" mnemonicParsing="false" text="On" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="SolarGrav" />
+                                       </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton fx:id="Final_date" mnemonicParsing="false" text="Final Date (UTC)" toggleGroup="$PropagationTimeIn" />
+                                    <RadioButton fx:id="SRPOn" mnemonicParsing="false" text="On" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="SRP" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton fx:id="DragOn" mnemonicParsing="false" text="On" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="Drag" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton fx:id="PlanetGravAll" mnemonicParsing="false" onAction="#handlePlanetaryGrav" text="On" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="PlanetGrav" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton fx:id="LunarGravOff" mnemonicParsing="false" text="Off" toggleGroup="$LunarGrav" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <RadioButton fx:id="SolarGravOff" mnemonicParsing="false" text="Off" toggleGroup="$SolarGrav" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <RadioButton fx:id="SRPOff" mnemonicParsing="false" text="Off" toggleGroup="$SRP" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                                    <RadioButton fx:id="DragOff" mnemonicParsing="false" text="Off" toggleGroup="$Drag" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                                    <RadioButton fx:id="PlanetGravOff" mnemonicParsing="false" onAction="#handlePlanetaryGrav" text="Off" toggleGroup="$PlanetGrav" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                                    <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <children>
+                                          <Label prefHeight="21.0" prefWidth="78.0" text="Order">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="5.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField fx:id="order" prefHeight="31.0" prefWidth="122.0">
+                                             <HBox.margin>
+                                                <Insets left="50.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                       <children>
+                                          <Label prefHeight="21.0" prefWidth="108.0" text="Degree">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="5.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField fx:id="degree" prefHeight="31.0" prefWidth="122.0">
+                                             <HBox.margin>
+                                                <Insets left="50.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                    <ChoiceBox fx:id="gravModel" prefHeight="31.0" prefWidth="201.0" GridPane.columnIndex="1">
+                                       <GridPane.margin>
+                                          <Insets bottom="10.0" />
+                                       </GridPane.margin>
+                                       <padding>
+                                          <Insets top="-5.0" />
+                                       </padding>
+                                    </ChoiceBox>
+                                    <ChoiceBox fx:id="Atmosphere" prefHeight="20.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                       <GridPane.margin>
+                                          <Insets bottom="10.0" top="10.0" />
+                                       </GridPane.margin>
+                                       <padding>
+                                          <Insets top="-5.0" />
+                                       </padding>
+                                    </ChoiceBox>
+                                    <CheckBox fx:id="Mercury" mnemonicParsing="false" text="Mercury" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <CheckBox fx:id="Venus" mnemonicParsing="false" text="Venus" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                                    <CheckBox fx:id="Mars" mnemonicParsing="false" text="Mars" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                    <CheckBox fx:id="Jupiter" mnemonicParsing="false" text="Jupiter" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                                    <CheckBox fx:id="Saturn" mnemonicParsing="false" text="Staturn" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                    <CheckBox fx:id="Uranus" mnemonicParsing="false" text="Uranus" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+                                    <CheckBox fx:id="Neptune" mnemonicParsing="false" text="Neptune" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                                    <CheckBox fx:id="Pluto" mnemonicParsing="false" text="Pluto" GridPane.columnIndex="2" GridPane.rowIndex="11" />
                                  </children>
-                                 <GridPane.margin>
-                                    <Insets />
-                                 </GridPane.margin>
-                              </HBox>
-                              <ChoiceBox fx:id="OutputFrame" prefHeight="31.0" prefWidth="272.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              </GridPane>
+                              <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                                <buttons>
+                                  <Button mnemonicParsing="false" onAction="#handleSaveForceModel" text="Save" />
+                                </buttons>
+                              </ButtonBar>
                            </children>
-                        </GridPane>
-                        <ButtonBar prefHeight="40.0" prefWidth="200.0">
-                           <buttons>
-                              <Button mnemonicParsing="false" onAction="#handleSaveConfiguration" text="Save" />
-                           </buttons>
-                        </ButtonBar>
+                        </VBox>
                      </children>
-                  </VBox>
-               </children></AnchorPane>
-      </content>
-    </Tab>
-  </tabs>
-</TabPane>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Configuration">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" spacing="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                           <children>
+                              <GridPane prefHeight="461.0" prefWidth="600.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="185.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="435.0" minWidth="10.0" prefWidth="395.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Data Folder" />
+                                    <Label text="Propagation Time" GridPane.rowIndex="1" />
+                                    <Label text="Output Time Step" GridPane.rowIndex="3" />
+                                    <Label text="Output Frame" GridPane.rowIndex="4" />
+                                    <Label text="Output File Name" GridPane.rowIndex="5" />
+                                    <TextField fx:id="DataFolder" GridPane.columnIndex="1" />
+                                    <TextField fx:id="PropagationTime" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="Output_TimeStep" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="OutputFileName" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <children>
+                                          <RadioButton fx:id="PropagationinDays" mnemonicParsing="false" text="Days">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="PropagationTimeIn" />
+                                             </toggleGroup>
+                                          </RadioButton>
+                                          <RadioButton fx:id="PropagationinSeconds" mnemonicParsing="false" text="Seconds" toggleGroup="$PropagationTimeIn">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </RadioButton>
+                                          <RadioButton fx:id="Final_date" mnemonicParsing="false" text="Final Date (UTC)" toggleGroup="$PropagationTimeIn" />
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets />
+                                       </GridPane.margin>
+                                    </HBox>
+                                    <ChoiceBox fx:id="OutputFrame" prefHeight="31.0" prefWidth="272.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                 </children>
+                              </GridPane>
+                              <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                                 <buttons>
+                                    <Button mnemonicParsing="false" onAction="#handleSaveConfiguration" text="Save" />
+                                 </buttons>
+                              </ButtonBar>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
