@@ -28,8 +28,7 @@ Graphical User Interface to propagate Earth Orbiting Objects based on the java l
 
 ## TO DO
   - [ ] Add logo.
-  - [ ] Handle TLE input in the GUI.
-  - [ ] Create button to load/relaod input file in main menud.
+  - [ ] Create button to load/reload input file in main menud (in progress).
   - [ ] Create installation script.
   - [ ] Write documentation.
   - [ ] Create Examples.
