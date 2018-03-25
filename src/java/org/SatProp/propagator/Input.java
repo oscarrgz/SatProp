@@ -44,15 +44,16 @@ public class Input {
 	public Properties parameters;
 	// Satellite state
 
+	public Properties getParameters() {
+		return parameters;
+	}
 	public Input (String file_path) throws IOException {
 		readDefault();
 		final File f = new File (file_path);
 		if (f.isFile()) {
-//			this.readFile(Paths.get(file_path));
 			this.readConfig(file_path);
 		} else {
-			System.out.println("No input file, program will terminate");
-			System.exit(-1);
+			System.out.println("No input file");
 		}
 	}
 	public Input() throws IOException {
